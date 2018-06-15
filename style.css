@@ -1,0 +1,102 @@
+	
+		/**---------------------------------------------------------------------------------------------------------**/
+		/*														RESIZER STYLESHEET														*/
+		/**---------------------------------------------------------------------------------------------------------**/
+		
+		.R-container,
+		.R-container div,
+		.R-container canvas{ position:absolute;margin:0; }
+		
+		.R-container{ 
+				margin:0 auto;width:100%;height:100%;
+				overflow:hidden;background:rgb(20, 20, 30);
+				-webkit-user-select:none;
+				-moz-user-select:none;
+				-ms-user-select:none;
+				-o-user-select:none;
+				user-select:none;
+		}
+		
+		/**---------------------------------------------------------------------------------------------------------**/
+		
+		.R-container .R-error{ left:0;right:0;padding:0 20%;padding-top:31%;font-family:tahoma;text-align:center;color:rgb(230, 230, 230);font-size:1.1em; } 
+		.R-container .R-adapter{ overflow:hidden; } 
+		.R-container .R-cover{ z-index:1;left:0;right:0;top:0;bottom:0; }
+		.R-container .R-scaler{ z-index:2;background:rgba(255, 255, 255, .9);border:2px solid rgba(255, 255, 255, .9); } 
+		.R-container .R-scaler.circle,
+		.R-container .R-scaler.circle canvas{ border-radius:50%;overflow:hidden; } 
+		
+		/**---------------------------------------------------------------------------------------------------------**/
+		.R-col-1, .R-col-2, .R-col-3{ z-index:2;width:33.33333%;height:100%; }
+		.R-raw-1, .R-raw-2, .R-raw-3{ z-index:2;width:100%;height:33.33333%; }
+		
+		.R-col-1{ border-right:1px dashed rgba(255, 255, 255, .4); }
+		.R-col-2{ left: 33.53333%;border-right:1px dashed rgba(255, 255, 255, .4); }
+		.R-col-3{ left: 67.16666%; }
+		
+		.R-raw-1{ border-bottom:1px dashed rgba(255, 255, 255, .4); }
+		.R-raw-2{ top: 33.53333%;border-bottom:1px dashed rgba(255, 255, 255, .4) }
+		.R-raw-3{ top: 67.16666%; }
+		
+		/**---------------------------------------------------------------------------------------------------------**/
+		
+		.R-corner-lt, .R-corner-rt, .R-corner-rb, .R-corner-lb{ z-index:3;width:20px;height:20px;border:2px solid rgba(255, 255, 255, .5);transition:300ms; }
+		.R-container .R-scaler.circle .R-corner-lt, 
+		.R-container .R-scaler.circle .R-corner-rt,  
+		.R-container .R-scaler.circle .R-corner-rb,  
+		.R-container .R-scaler.circle .R-corner-lb{ width:25px;height:25px; }
+		
+		.R-corner-lt{ left:5px;top:5px;border-width:2px 0 0 2px; }
+		.R-corner-rt{ right:5px;top:5px;border-width:2px 2px 0 0; }
+		.R-corner-rb{ right:5px;bottom:5px;border-width:0 2px 2px 0; }
+		.R-corner-lb{ left:5px;bottom:5px;border-width:0 0 2px 2px; }
+		.R-container .R-scaler.circle .R-corner-lt{ left:16%;top:16%;border-width:3px 0 0 3px;border-radius:50px 0 0 0; }
+		.R-container .R-scaler.circle .R-corner-rt{ right:16%;top:16%;border-width:2px 2px 0 0;border-radius:0 50px 0 0; }
+		.R-container .R-scaler.circle .R-corner-rb{ right:16%;bottom:16%;border-width:0 2px 2px 0;border-radius:0 0 50px 0; }
+		.R-container .R-scaler.circle .R-corner-lb{ left:16%;bottom:16%;border-width:0 0 2px 2px;border-radius:0 0 0 50px; }
+		
+		.R-corner-lt:hover{ border-width:4px 0 0 4px; }
+		.R-corner-rt:hover{ border-width:4px 4px 0 0; }
+		.R-corner-rb:hover{ border-width:0 4px 4px 0; }
+		.R-corner-lb:hover{ border-width:0 0 4px 4px; }
+		.R-corner-lt:hover, .R-corner-rt:hover, .R-corner-rb:hover, .R-corner-lb:hover{ width:30px;height:30px; }
+		
+		/**---------------------------------------------------------------------------------------------------------**/
+		
+		.R-side-left, .R-side-top, .R-side-right, .R-side-bottom{ z-index:3;width:15px;height:15px;border:2px solid rgba(255, 255, 255, .9);background:rgb(220, 220, 220);border-radius:50%;transition:300ms; }
+		.R-side-left{ left:-10px;top:47%; }
+		.R-side-top{ left:46.5%;top:-10px; }
+		.R-side-right{ right:-10px;top:47%; }
+		.R-side-bottom{ left:46.5%;bottom:-10px; }
+		.R-side-left:hover,
+		.R-side-left:active, 
+		.R-side-top:hover, 
+		.R-side-top:active, 
+		.R-side-right:hover, 
+		.R-side-right:active, 
+		.R-side-bottom:hover,
+		.R-side-bottom:active{ width:20px;height:20px;box-shadow:0 0 0 10px rgba(230, 230, 230, .3) }
+		.R-side-left:hover{ left:-13px;top:46.5%; }
+		.R-side-top:hover{ left:46%;top:-13px; }
+		.R-side-right:hover{ right:-13px;top:46.5%; }
+		.R-side-bottom:hover{ left:46%;bottom:-13px; }
+		
+		/**---------------------------------------------------------------------------------------------------------**/
+		
+		@media (max-width: 767px){
+		
+		}
+		
+		@media (min-width: 768px) and (max-width: 991px){
+			
+		}
+		
+		@media (min-width: 992px) and (max-width: 1199px){
+			
+		}
+		
+		@media (min-width: 1200px){
+			
+		}
+		
+		
