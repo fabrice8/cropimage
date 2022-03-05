@@ -4,7 +4,7 @@ Jquery plugin to resize/crop images in a browser
 ## Usage
 
 ```js
-  <script type="text/javscript" src="jquery.resizeImage.min.js">
+  <script type="text/javscript" src="jquery.imageResizer.min.js">
 ```
 
 ```js
