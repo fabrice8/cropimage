@@ -1,0 +1,10 @@
+{
+  "name": "imageResizer",
+  "version": "1.0.0",
+  "description": "Smoothly resize/crop any image in a browser",
+  "main": "jquery.imageResizer.js",
+  "repository": "https://github.com/fabrice8/imageResizer.git",
+  "author": "Fabrice K.M. Ekpetse <fabrice.xyclone@gmail.com>",
+  "license": "MIT",
+  "private": false
+}
