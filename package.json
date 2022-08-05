@@ -1,13 +1,20 @@
 {
   "name": "cropimages",
-  "version": "1.0.2",
+  "version": "0.0.1",
   "description": "Smoothly crop any image in a browser",
-  "main": "cropimage.js",
-  "exports": [
-    "./cropimage.css"
-  ],
+  "browser": "./cropimage.js",
+  "exports": {
+    ".": "./cropimage.js",
+    "./cropimage.css": "./cropimage.css"
+  },
   "repository": "https://github.com/fabrice8/cropimage.git",
   "author": "Fabrice K.M. Ekpetse <fabrice.xyclone@gmail.com>",
   "license": "MIT",
-  "private": false
+  "private": false,
+  "keywords": [
+    "crop-image", 
+    "cropper", 
+    "image-cropper", 
+    "jquery"
+  ]
 }

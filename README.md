@@ -1,4 +1,4 @@
-# CropImage
+# CropImagess
 Javascript library to crop images in a browser
 
 ![Demo picture](https://github.com/fabrice8/cropimage/blob/master/test/images/demo.png?raw=true)
@@ -6,11 +6,11 @@ Javascript library to crop images in a browser
 ## Install
 
 ```
-npm install cropimage
+npm install cropimages
 ```
 or
 ```
-yarn install cropimage
+yarn install cropimages
 ```
 
 ## Usage
@@ -18,8 +18,8 @@ yarn install cropimage
 
 In node environment
 ```js
-import 'cropimage'
-import 'cropimage/cropimage.css' // Crop style
+import 'cropimages'
+import 'cropimages/cropimage.css' // Crop style
 ```
 
 In browser
