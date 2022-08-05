@@ -1,6 +1,8 @@
 # CropImage
 Jquery plugin to crop images in a browser
 
+![Demo picture](test/images/demo.png?raw=true)
+
 ## Install
 
 ```
