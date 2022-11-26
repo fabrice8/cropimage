@@ -1,6 +1,6 @@
 {
   "name": "cropimages",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Smoothly crop any image in a browser",
   "browser": "./cropimage.js",
   "exports": {
@@ -12,9 +12,9 @@
   "license": "MIT",
   "private": false,
   "keywords": [
-    "crop-image", 
-    "cropper", 
-    "image-cropper", 
+    "crop-image",
+    "cropper",
+    "image-cropper",
     "jquery"
   ]
 }
