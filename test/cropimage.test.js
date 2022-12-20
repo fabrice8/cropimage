@@ -128,43 +128,29 @@
 	
 	function AdaptImg( e, CONTAINER, callback ){
 		// Adapt the image format to the container ( adaptation by responsive )
-		
 		var rendWidth = e.width,
 				rendHeight = e.height,
-				horizontalImage = e.width >= e.height,
 				rendTop = 0,
 				rendLeft = 0
-		
-		if( horizontalImage ){
-			
-			if( e.width > CONTAINER.width() ){
-				
-				rendHeight *= CONTAINER.width() / rendWidth
-				rendWidth = CONTAINER.width()
-				
-				rendTop = ( CONTAINER.height() - rendHeight ) / 2
-				
-			} else {
-				
-				rendWidth *= CONTAINER.height() / rendHeight
-				rendHeight = CONTAINER.height()
-				
-				rendLeft = ( CONTAINER.width() - rendWidth ) / 2
-			}
-		} else {
-			rendWidth *= CONTAINER.height() / rendHeight
+
+		rendWidth *= CONTAINER.height() / e.height
+		if( rendWidth > CONTAINER.width() )
+			rendWidth = CONTAINER.width()
+
+		rendHeight *= CONTAINER.width() / e.width
+		if( rendHeight > CONTAINER.height() )
 			rendHeight = CONTAINER.height()
 			
-			rendLeft = ( CONTAINER.width() - rendWidth ) / 2
-		}
-		
-		callback({ 
-						width: rendWidth, 
-						height: rendHeight,
-						left: rendLeft,
-						top: rendTop,
-						HzImage: e.width != e.height ? e.width > e.height : null
-					})
+		rendTop = ( CONTAINER.height() - rendHeight ) / 2
+		rendLeft = ( CONTAINER.width() - rendWidth ) / 2
+			
+		callback({
+							width: rendWidth, 
+							height: rendHeight,
+							left: rendLeft,
+							top: rendTop,
+							HzImage: e.width != e.height ? e.width > e.height : null
+						})
 	}
 	
 	function validateIMG( img, options, callback ){
