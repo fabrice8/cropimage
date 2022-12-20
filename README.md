@@ -63,6 +63,14 @@ const options = {
   /* Zoomable image before crop */
   zoomable: true,
 
+  /* Cropper container background
+    *
+    * Options:
+    * - transparent (Default)
+    * - custom (In this case, set your background style to the cropper container)
+    */
+  background: 'transparent',
+
   /* Show seperation grid within cropping area */
   inBoundGrid: true,
 

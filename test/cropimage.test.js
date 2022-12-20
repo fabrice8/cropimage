@@ -26,6 +26,12 @@
 		touchstart: function( fn ){ return fn ? this.bind( 'touchstart', fn ) : this.trigger('touchstart') },
 		touchmove: function( fn ){ return fn ? this.bind( 'touchmove', fn ) : this.trigger('touchmove') }
 	})
+
+	function DisplayError( message ){
+		$('.R-container')
+		.css('background', 'black')
+		.html('<div class="R-error">'+ message +'</div>')
+	}
 	
 	function CreateCropBox( options ){
 		// Create the resizing hoster block
@@ -211,7 +217,7 @@
 							minHeight: MIN_SIZES.height,
 							ratio: Number( MIN_SIZES.width ) / Number( MIN_SIZES.height )
 						})
-						: $(".R-container").html( '<div class="R-error">This image is smaller than '+ MIN_SIZES.width +'x'+ MIN_SIZES.height +'</div>' )
+						: DisplayError('This image is smaller than '+ MIN_SIZES.width +'x'+ MIN_SIZES.height )
 	}
 	
 	function core( options, callback ){
@@ -227,6 +233,7 @@
 														circleCrop: false, // true => circle, square ( by default )
 														zoomable: true,
 														zoomMax: 2,
+														background: 'transparent', // transparent, custom
 														inBoundGrid: true,
 														outBoundColor: 'dark', // light, dark
 														btnDoneAttr: '.R-container .R-btn-done'
@@ -248,10 +255,14 @@
 				$_TRIGGERS = $('[class^="R-side-"], [class^="R-corner-"]')
 		
 		
-		if( OPTIONS.image )
-			IMG_URL = typeof OPTIONS.image !== 'string' ? window.URL.createObjectURL( OPTIONS.image ) : OPTIONS.image // create URL in case the IMG is a blob file
-		
-		else $_CONTAINER.html( '<div class="R-error">Configuration Error: Set the image URL or blob image file as options.image </div>' )
+		if( OPTIONS.image ){
+			IMG_URL = typeof OPTIONS.image !== 'string' ? 
+																window.URL.createObjectURL( OPTIONS.image ) // String URL
+																: OPTIONS.image // Blob
+			
+			$_CONTAINER.addClass( OPTIONS.background )
+		}
+		else DisplayError('Configuration Error: Set the image URL or blob image file as options.image')
 		
 		/**---------------------------------------- Load and init the new image created ----------------------------------------**/
 		
