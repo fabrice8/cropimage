@@ -1,7 +1,7 @@
 # CropImage
 Javascript library to crop images in a browser
 
-![Demo picture](https://github.com/fabrice8/cropimage/blob/master/test/images/demo.png?raw=true)
+![Demo picture](https://github.com/fabrice8/cropimage/blob/master/test/images/demo.jpeg?raw=true)
 
 ## Install
 
