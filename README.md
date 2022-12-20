@@ -24,8 +24,8 @@ import 'cropimages/cropimage.css' // Crop style
 
 In browser
 ```HTML
-<link rel="stylesheet" type="text/css" src="cropimage.css">
-<script type="text/javscript" src="cropimage.min.js">
+<link rel="stylesheet" type="text/css" src="https://unpkg.com/cropimages@0.0.4/cropimage.min.css">
+<script type="text/javscript" src="https://unpkg.com/cropimages@0.0.4/cropimage.min.js">
 ```
 
 ```js
