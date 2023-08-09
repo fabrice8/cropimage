@@ -17,7 +17,7 @@ yarn install cropimages
 **Note:** It requires **jquery** library
 
 In node environment
-```js
+```JS
 import 'cropimages'
 import 'cropimages/cropimage.css' // Crop style
 ```
@@ -28,7 +28,7 @@ In browser
 <script type="text/javscript" src="https://unpkg.com/cropimages@0.0.4/cropimage.min.js">
 ```
 
-```js
+```JS
 const options = {
   /* Source of the image to crop: 
     * - Relative URL
@@ -92,7 +92,7 @@ $('#contain').cropimage( options, function( imgSrc ){
     the user click on element reference with `btnDoneAttr`
   */
 
-  // ...
+  // Do something with the image here...
 } )
 ```
 
