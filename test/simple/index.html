@@ -1,7 +1,7 @@
 <!doctype html>
 <html>
 	<head>
-		<link rel="stylesheet" href="../cropimage.css" type="text/css">
+		<link rel="stylesheet" href="../../cropimage.css" type="text/css">
 	</head>
 	<body>
 		<div id="move-stats" style="position:absolute;left:2%;top:5%;padding:10px;box-shadow:0 0 8px 2px rgba(100, 100, 100, .4);font-family:tahoma;"></div>
@@ -9,8 +9,8 @@
 		
 		<button class="btn-cropper-done">Done</button>
 		
-		<script type="text/javascript" src="jquery.min.js"></script>
-		<script type="text/javascript" src="./cropimage.test.js"></script>
+		<script type="text/javascript" src="../jquery.min.js"></script>
+		<script type="text/javascript" src="../cropimage.test.js"></script>
 		<script type="text/javascript">
 			$(document).ready( function(){
 				const options = {
@@ -20,7 +20,7 @@
 					 * - Blob URL
 					 * - base64 
 					 */
-					image: 'images/horizontal.jpeg',
+					image: '../images/horizontal.jpeg',
 
 					/** Minimum crop image dimensions
 					 * 

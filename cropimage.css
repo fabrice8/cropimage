@@ -6,11 +6,11 @@
 	* Created: 10/06/2018
 	* Updated: 20/12/2022
 	*/
-.R-container,
 .R-container div,
-.R-container canvas{ position:absolute;margin:0; }
+.R-container canvas { position:absolute;margin:0;box-sizing: unset; }
 
 .R-container{
+	position: relative;
 	margin:0 auto;width:100%;height:100%;
 	overflow:hidden;background-image: url('./transgraphic.png');
 	-webkit-user-select:none;
@@ -24,7 +24,7 @@
 /**---------------------------------------------------------------------------------------------------------**/
 
 .R-container .R-error{ left:0;right:0;padding:0 20%;padding-top:31%;font-family:tahoma;text-align:center;color:rgb(230, 230, 230);font-size:1.1em; } 
-.R-container .R-adapter{ overflow:hidden; } 
+.R-container .R-adapter{ overflow:hidden; }
 .R-container .R-cover{ z-index:1;left:0;right:0;top:0;bottom:0; }
 .R-container .R-cropper{ z-index:2;background:rgba(255, 255, 255, .9);border:2px solid rgba(255, 255, 255, .9); }  
 .R-container .R-cropper .R-grid{ width: 100%; height: 100%; overflow: hidden; } 

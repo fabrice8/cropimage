@@ -284,14 +284,13 @@
 			// static (container) and dynamic (cropper) canvas contexts
 			ctx_Dynamic.imageSmoothingEnabled = true
 			ctx_Dynamic.imageSmoothingQuality = 'high'
-					
-			// given the picture size to the static canvas
-			_statCanvas.width = $_CONTAINER.width()
-			_statCanvas.height = $_CONTAINER.height()
 			
 			/*************** Adapt the picture to the container ( responsive ) ***************/
 			AdaptImg( originDetails, $_CONTAINER, function( ADAPTED ){
-			
+				// given the picture size to the static canvas
+				_statCanvas.width = ADAPTED.width
+				_statCanvas.height = ADAPTED.height
+
 				// Cover only the space of the image
 					$_COVER.css({ 
 						left: ADAPTED.left +'px', 
@@ -303,7 +302,7 @@
 					
 					/*************** Position and the size of the image cropper ( cropper ) in function of the container ***************/
 					Cropper( originDetails, ADAPTED, function( CROPPED ){
-						
+
 							$_CROPPER.css({ // 4 => _CROPPER border width
 								width: _dynaCanvas.width = CROPPED.width - 4,
 								height: _dynaCanvas.height = CROPPED.height - 4,
@@ -342,27 +341,25 @@
 									
 								
 								$('#move-stats').html( '<h3>Initialize</h3>'
-																		+'<small>zoom: '+ zoom +' >> Max: '+ OPTIONS.zoomMax +'</small><br>'
-																		+'<small>NO_MOVE: '+ NO_MOVE +'</small><br><br>' 
-																		+'<small>Ratio: '+ originDetails.ratio +'</small><br>' 
-																		+'<small>image.width: '+ originDetails.width +'<br>image.height: '+ originDetails.height +'</small><br>' 
-																		+'<small>image.minWidth: '+ originDetails.minWidth +'<br>image.minHeight: '+ originDetails.minHeight +'</small><br><br>'
-																		
-																		+'<small>ADAPTED.width: '+ ADAPTED.width +' >> '+ $_CONTAINER.width() +'<br>ADAPTED.height: '+ ADAPTED.height +' >> '+ $_CONTAINER.height() +'</small><br>' 
-																		+'<small>ADAPTED.left: '+ ADAPTED.left +'<br>ADAPTED.top: '+ ADAPTED.top +'</small><br><br>' 
-																		
-																		+'<small>CROPPED.width: '+ CROPPED.width +'<br>CROPPED.height: '+ CROPPED.height +'</small><br>' 
-																		+'<small>CROPPED.left: '+ CROPPED.left +'<br>CROPPED.top: '+ CROPPED.top +'</small><br><br>' 
-																		
-																		+'<small>MIN_WIDTH: '+ MIN_WIDTH +'</small><br>' 
-																		+'<small>MIN_HEIGHT: '+ MIN_HEIGHT +'</small><br><br>'
-																		
-																		+'<small>MoveLimitLeft: '+ MoveLimitLeft +'</small><br>' 
-																		+'<small>MoveLimitTop: '+ MoveLimitTop +'</small><br>'
-																		+'<small>MoveLimitRight:  '+ MoveLimitRight +'</small><br>' 
-																		+'<small>MoveLimitBottom: '+ MoveLimitBottom +'</small><br><br>'
-																	)
-								
+																			+'<small>zoom: '+ zoom +' >> Max: '+ OPTIONS.zoomMax +'</small><br>'
+																			+'<small>NO_MOVE: '+ NO_MOVE +'</small><br><br>'
+																			+'<small>Ratio: '+ originDetails.ratio +'</small><br>'
+																			+'<small>image.width: '+ originDetails.width +'<br>image.height: '+ originDetails.height +'</small><br>'
+																			+'<small>image.minWidth: '+ originDetails.minWidth +'<br>image.minHeight: '+ originDetails.minHeight +'</small><br><br>'
+																			
+																			+'<small>ADAPTED.width: '+ ADAPTED.width +' >> '+ $_CONTAINER.width() +'<br>ADAPTED.height: '+ ADAPTED.height +' >> '+ $_CONTAINER.height() +'</small><br>'
+																			+'<small>ADAPTED.left: '+ ADAPTED.left +'<br>ADAPTED.top: '+ ADAPTED.top +'</small><br><br>'
+																			
+																			+'<small>CROPPED.width: '+ CROPPED.width +'<br>CROPPED.height: '+ CROPPED.height +'</small><br>'
+																			+'<small>CROPPED.left: '+ CROPPED.left +'<br>CROPPED.top: '+ CROPPED.top +'</small><br><br>'
+																			
+																			+'<small>MIN_WIDTH: '+ MIN_WIDTH +'</small><br>'
+																			+'<small>MIN_HEIGHT: '+ MIN_HEIGHT +'</small><br><br>'
+																			
+																			+'<small>MoveLimitLeft: '+ MoveLimitLeft +'</small><br>'
+																			+'<small>MoveLimitTop: '+ MoveLimitTop +'</small><br>'
+																			+'<small>MoveLimitRight:  '+ MoveLimitRight +'</small><br>'
+																			+'<small>MoveLimitBottom: '+ MoveLimitBottom +'</small><br><br>')
 						
 							/**---------------------------------------- init canvas images ----------------------------------------**/
 							
@@ -374,7 +371,8 @@
 							
 							/**---------------------------------------- events ----------------------------------------**/
 							
-							$_CROPPER.mousedown( function(e){
+							$_CROPPER
+							.mousedown( function(e){
 								
 									if( !NO_MOVE ){
 										
@@ -386,7 +384,6 @@
 									MoveLimitRight = ADAPTED.width - $_CROPPER.width()
 									MoveLimitBottom = ADAPTED.height - $_CROPPER.height()
 							} )
-							
 							.dblclick( function( e ){
 								// zooming container image
 								
@@ -400,7 +397,6 @@
 											
 									zooming( zoomUp )
 							} )
-							
 							.touchstart( function(e){
 								
 									if( !NO_MOVE ){
@@ -424,8 +420,8 @@
 									RESIZING.y = e.pageY - $_CROPPER.position().top
 							} )
 							
-							$(document).mouseup( function(){ stop() } )
-							
+							$(document)
+							.mouseup( function(){ stop() } )
 							.mousemove( function(e){
 									e.preventDefault()
 									
@@ -434,12 +430,12 @@
 							
 							.touchend( function(){ stop() } )
 							
-							$_ADAPTER.mousemove( function(e){
+							$_ADAPTER
+							.mousemove( function(e){
 									e.preventDefault()
 									
 									if( MOVING.t ) moving( e, MOVING )
 							} )
-							
 							.touchmove( function(e){
 									e.preventDefault()
 									
