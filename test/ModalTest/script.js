@@ -18,10 +18,13 @@ $(document).ready(function(){
       // outBoundColor: 'white', // black, white
       btnDoneAttr: '#crop_popup .btn-primary'
     }
-
-    $('#crop_popup .modal-body').cropimage(cropOptions, function(imgURL){
-      /// ...
-    } )
-    $('#crop_popup').modal()
+    
+    $('#crop_popup')
+    .on('shown.bs.modal', function(){
+      $('#crop_popup .modal-body').cropimage(cropOptions, function(imgURL){
+        // ...
+      })
+    })
+    .modal()
   })
 })
