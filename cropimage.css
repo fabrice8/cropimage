@@ -4,10 +4,10 @@
 	* Version: 1.0.0
 	* Author: Fabrice K.E.M
 	* Created: 10/06/2018
-	* Updated: 20/12/2022
+	* Updated: 09/08/2023
 	*/
 .R-container div,
-.R-container canvas { position:absolute;margin:0;box-sizing: unset; }
+.R-container canvas { position:absolute;margin:0;box-sizing:unset; }
 
 .R-container{
 	position: relative;

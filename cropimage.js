@@ -294,13 +294,13 @@
 			// static (container) and dynamic (cropper) canvas contexts
 			ctx_Dynamic.imageSmoothingEnabled = true
 			ctx_Dynamic.imageSmoothingQuality = 'high'
-					
-			// given the picture size to the static canvas
-			_statCanvas.width = $_CONTAINER.width()
-			_statCanvas.height = $_CONTAINER.height()
 			
 			/*************** Adapt the picture to the container ( responsive ) ***************/
 			AdaptImg( originDetails, $_CONTAINER, function( ADAPTED ){
+				// given the picture size to the static canvas
+				_statCanvas.width = ADAPTED.width
+				_statCanvas.height = ADAPTED.height
+
 				// Cover only the space of the image
 				$_COVER.css({
 					left: ADAPTED.left +'px', 
@@ -695,7 +695,6 @@
 					
 					function zooming( zoomUp ){
 						// zoom container image
-						
 						ctx_Static.clearRect( 0, 0, ZOOMING.width, ZOOMING.height )
 						
 						if( zoomUp && zoom < OPTIONS.zoomMax ) zoom++ // zoom up
