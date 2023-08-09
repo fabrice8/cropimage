@@ -4,7 +4,7 @@
 	* Version: 1.0.0
 	* Author: Fabrice K.E.M
 	* Created: 10/06/2018
-	* Updated: 20/12/2022
+	* Updated: 09/08/2023
 	* Repository: https://github.com/fabrice8/cropimage
 	*/
 ( function( factory ){
@@ -20,13 +20,14 @@
 }( function( $ ){
 	'use strict'
 	
-	var OUTBOUNDS_COLOR = {
-				dark: 'rgba(20, 20, 20, .6)',
-				light: 'rgba(250, 250, 250, .6)'
-			},
-			STATIC_CROP = false, // the get absolute input sizes
-			AUTO_CROP = false, // scalable but keep the picture sizes format
-			FREE_CROP = false // give ability to crop de image any how you want directly in the canvas
+	var
+	OUTBOUNDS_COLOR = {
+		dark: 'rgba(20, 20, 20, .6)',
+		light: 'rgba(250, 250, 250, .6)'
+	},
+	STATIC_CROP = false, // the get absolute input sizes
+	AUTO_CROP = false, // scalable but keep the picture sizes format
+	FREE_CROP = false // give ability to crop de image any how you want directly in the canvas
 			
 	if( typeof $ === 'undefined' || !$.hasOwnProperty( 'fn' ) )
 		throw new Error( 'CropImage requires jQuery' )
@@ -49,7 +50,6 @@
 	
 	function CreateCropBox( options ){
 		// Create the resizing hoster block
-		
 		return `<div class="R-container">
 							<div class="R-cover"></div>
 							
@@ -88,12 +88,12 @@
 	
 	function Cropper( e, adapted, callback ){
 		// Define the responsivity of the cropper ( cropr ) in function of the picture and his adaptation to the container
+		var
+		rendWidth = adapted.width,
+		rendHeight = adapted.height,
 		
-		var rendWidth = adapted.width,
-				rendHeight = adapted.height,
-				
-				destinationWidth,
-				destinationHeight
+		destinationWidth,
+		destinationHeight
 				
 		if( e.ratio != 1 ){
 			if( e.ratio < 1 ){
@@ -148,10 +148,11 @@
 	
 	function AdaptImg( e, CONTAINER, callback ){
 		// Adapt the image format to the container ( adaptation by responsive )
-		var rendWidth = e.width,
-				rendHeight = e.height,
-				rendTop = 0,
-				rendLeft = 0
+		var 
+		rendWidth = e.width,
+		rendHeight = e.height,
+		rendTop = 0,
+		rendLeft = 0
 
 		rendWidth *= CONTAINER.height() / e.height
 		if( rendWidth > CONTAINER.width() )
@@ -165,12 +166,12 @@
 		rendLeft = ( CONTAINER.width() - rendWidth ) / 2
 			
 		callback({
-							width: rendWidth, 
-							height: rendHeight,
-							left: rendLeft,
-							top: rendTop,
-							HzImage: e.width != e.height ? e.width > e.height : null
-						})
+			width: rendWidth, 
+			height: rendHeight,
+			left: rendLeft,
+			top: rendTop,
+			HzImage: e.width != e.height ? e.width > e.height : null
+		})
 	}
 	
 	function validateIMG( img, options, callback ){
@@ -235,24 +236,23 @@
 	}
 	
 	function core( options, callback ){
-		
 		/**---------------------------------------- cropper input configurations ----------------------------------------**/
-		
-		var OPTIONS = $.extend({
-														image: false,
-														imgFormat: 'auto', // Formats: 3/2, 200x360, auto
-														minWidth: 0,
-														minHeight: 0,
-														device: 'all', // lg-md, sm-xs
-														circleCrop: false, // true => circle, square ( by default )
-														zoomable: true,
-														zoomMax: 2,
-														background: 'transparent', // transparent, custom
-														inBoundGrid: true,
-														outBoundColor: 'dark', // light, dark
-														btnDoneAttr: '.R-container .R-btn-done'
-													}, options ),
-				IMG_URL
+		var 
+		OPTIONS = $.extend({
+			image: false,
+			imgFormat: 'auto', // Formats: 3/2, 200x360, auto
+			minWidth: 0,
+			minHeight: 0,
+			device: 'all', // lg-md, sm-xs
+			circleCrop: false, // true => circle, square ( by default )
+			zoomable: true,
+			zoomMax: 2,
+			background: 'transparent', // transparent, custom
+			inBoundGrid: true,
+			outBoundColor: 'dark', // light, dark
+			btnDoneAttr: '.R-container .R-btn-done'
+		}, options ),
+		IMG_URL
 				
 		/**---------------------------------------- Create and init the cropper DOM components ----------------------------------------**/
 		
@@ -265,9 +265,7 @@
 		$_ADAPTER = $(".R-adapter"),
 		$_CROPPER = $(".R-cropper"),
 		$_COVER = $(".R-cover"),
-		
 		$_TRIGGERS = $('[class^="R-side-"], [class^="R-corner-"]')
-		
 		
 		if( OPTIONS.image ){
 			IMG_URL = typeof OPTIONS.image !== 'string' ? 
@@ -278,9 +276,7 @@
 		}
 		else DisplayError('Configuration Error: Set the image URL or blob image file as options.image')
 		
-		
 		/**---------------------------------------- Load and init the new image created ----------------------------------------**/
-		
 		window.location.protocol == 'file:' ?
 												console.warn('[CropImage] - Exporting cropped image might not work because of <file://> protocol')
 												: _IMG_.crossOrigin = '*'
