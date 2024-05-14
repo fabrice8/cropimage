@@ -30,13 +30,15 @@ In browser
 
 ```JS
 const options = {
-  /* Source of the image to crop: 
+  /** Source of the image to crop: 
     * - Relative URL
     * - Absolute URL
     * - Blob URL
-    * - base64 
+    * - base64
+    * 
+    * Default: undefined
     */
-  image: 'images/vertical.jpeg',
+  image: '../images/horizontal.jpeg',
 
   /** Minimum crop image dimensions
    * 
@@ -44,6 +46,8 @@ const options = {
    * - `auto` allow full dynamic resizing crop
    * - `A/B` format works like 'auto' but defines cropping width and height ratio. Eg. 1/2, 5/3, 4/4, ...
    * - `PxN` format define static image sizes. Eg. 200x360 (width: 200px, height: 360px)
+   * 
+   * Default: auto
    */
   imgFormat: 'auto',
 
@@ -53,47 +57,72 @@ const options = {
    * one of `minWidth` and `minHeight` can be define. If both are
    * define, `minWidth` will be use to calculate `minHeight`,
    * visa-versa respective to their adaptive ratio.
+   * 
+   * Default: auto (For both)
    */
   minWidth: 100,
   minHeight: 100,
 
-  /* Cropping area bordering type: Circle or Square (Default) */
-  circleCrop: true,
+  /**
+   * Cropping area bordering type: Circle or Square
+   * 
+   * Default: false (Square)
+   */
+  circleCrop: false,
 
-  /* Zoomable image before crop */
+  /**
+   * Zoomable image before crop
+   * 
+   * Default: true
+   */
   zoomable: true,
 
-  /* Cropper container background
+  /** 
+    * Cropper container background
     *
     * Options:
-    * - transparent (Default)
+    * - transparent
     * - custom (In this case, set your background style to the cropper container)
+    * 
+    * Default: transparent
     */
   background: 'transparent',
 
-  /* Show seperation grid within cropping area */
+  /**
+   * Show seperation grid within cropping area
+   * 
+   * Default: true
+   */
   inBoundGrid: true,
 
-  /* Surrending out-bound cropping area mode:
+  /** Surrending out-bound cropping area mode:
     *
     * Options:
     * - light
     * - dark (Default)
     * - none
+    * 
+    * Default: none
     */
   outBoundColor: 'none',
 
-  /* Select attribute of the HTML Element that will trigger crop-done event */
-  btnDoneAttr: '.btn-cropper-done'
+  /**
+   * Cropper area border
+   * 
+   * Default: true
+   */
+  noBorder: false
 }
 
-$('#contain').cropimage( options, function( imgSrc ){
-  /* Callback function that return cropped image source URL when
-    the user click on element reference with `btnDoneAttr`
-  */
+// Initiate cropper
+const cropper = $('#contain').cropimage( options )
 
-  // Do something with the image here...
-} )
+$('.button-crop').on('click', function(){
+  // Get the cropped image source URL
+  const blobDataURL = cropper.getImage('PNG') // JPEG, PNG, ...
+  // Callback with cropped image's blob generated URL
+  $('#move-stats').html('<h3>Cropped Image</h3><img style="margin:10% auto;" src="'+ blobDataURL +'">')
+})
 ```
 
 Voilà!
