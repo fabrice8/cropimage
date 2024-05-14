@@ -262,8 +262,6 @@
 		}, options ),
 		IMG_URL
 
-		console.log( options )
-		
 		/**---------------------------------------- Create and init the cropper DOM components ----------------------------------------**/
 		
 		$(this).html( CreateCropBox( OPTIONS ) )
@@ -309,13 +307,13 @@
 
 		function initialize( originDetails ){
 			// Variable accessible outsite this function's scope
-			cropCanvas = document.querySelector(".dynaCanvas")
+			cropCanvas = document.querySelector('.dynaCanvas')
 
 			var 
-			staticCanvas = document.querySelector(".statCanvas"),
+			staticCanvas = document.querySelector('.statCanvas'),
 			
-			ctx_Static = staticCanvas.getContext("2d"),
-			ctx_Dynamic = cropCanvas.getContext("2d")
+			ctx_Static = staticCanvas.getContext('2d'),
+			ctx_Dynamic = cropCanvas.getContext('2d')
 					
 			// static (container) and dynamic (cropper) canvas contexts
 			ctx_Dynamic.imageSmoothingEnabled = true
@@ -329,10 +327,10 @@
 
 				// Cover only the space of the image
 				$_COVER.css({
-					left: ADAPTED.left +'px', 
-					top: ADAPTED.top +'px', 
-					right: ADAPTED.left +'px', 
-					bottom: ADAPTED.top +'px', 
+					left: ADAPTED.left +'px',
+					top: ADAPTED.top +'px',
+					right: ADAPTED.left +'px',
+					bottom: ADAPTED.top +'px',
 					background: OUTBOUNDS_COLOR[ OUTBOUNDS_COLOR.hasOwnProperty( OPTIONS.outBoundColor ) ? OPTIONS.outBoundColor : 'dark' ]
 				})
 				

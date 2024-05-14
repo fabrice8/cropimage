@@ -53,6 +53,7 @@ $(function(){
       * Options:
       * - transparent
       * - custom (In this case, set your background style to the cropper container)
+      *   Eg. black, rgb(100, 100, 120), #fff000, etc
       * 
       * Default: transparent
       */
