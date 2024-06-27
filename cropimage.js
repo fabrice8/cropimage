@@ -1,14 +1,13 @@
 /** ---------------------------------------------------------------------------
 	*											CropImage Plugin with JQuery
 	* ---------------------------------------------------------------------------
-	* Version: 1.2.0
+	* Version: 1.2.1
 	* Author: Fabrice K.E.M
 	* Created: 10/06/2018
-	* Updated: 14/05/2024
+	* Updated: 27/06/2024
 	* Repository: https://github.com/fabrice8/cropimage
 	*/
-( function( factory ){
-	
+(function( factory ){
 	if( typeof define === 'function' && define.amd )
 		define( [ 'jquery' ], factory ) // AMD. Register as an anonymous module.
 		
@@ -16,7 +15,6 @@
 		module.exports = factory( require('jquery') ) // Node/CommonJS
 		
 	else factory( jQuery ) // Browser globals
-	
 }( function( $ ){
 	'use strict'
 
@@ -44,9 +42,8 @@
 	})
 
 	function DisplayError( message ){
-		$('.R-container')
-		.css('background', 'black')
-		.html('<div class="R-error">'+ message +'</div>')
+		$('.R-container').append('<div class="R-error">'+ message +'</div>')
+		setTimeout( () => $('.R-container .R-error').remove(), 8000 )
 	}
 	
 	function CreateCropBox( options ){
@@ -266,14 +263,17 @@
 		
 		$(this).html( CreateCropBox( OPTIONS ) )
 		
-		var  
-		_IMG_ = new Image(),
+		let  
+		_IMG_ = null,
 		$_CONTAINER = $(".R-container"),
 		$_ADAPTER = $(".R-adapter"),
 		$_CROPPER = $(".R-cropper"),
 		$_COVER = $(".R-cover"),
 		$_TRIGGERS = $('[class^="R-side-"], [class^="R-corner-"]'),
-		cropCanvas = null
+		cropCanvas = null,
+		staticCanvas = null,
+		ctx_Static = null,
+		ctx_Dynamic = null
 		
 		/**
 		 * Mount image to crop and the canvas background
@@ -281,10 +281,42 @@
 		function setImage( image ){
 			OPTIONS.image = image
 
+			_IMG_ = new Image()
+
+			/**
+			 * Load and init the new image created
+			 */
+			window.location.protocol == 'file:' ?
+													console.warn('[CropImage] - Exporting cropped image might not work because of <file://> protocol')
+													: _IMG_.crossOrigin = '*'
+													
+			_IMG_.onerror = function( error ){ console.error(`Error loading the image: ${error}`) }
+			_IMG_.onload = function(){
+				/*************** Validate input image and apply crop configurations ***************/
+				validateIMG( _IMG_, OPTIONS, initialize )
+				$(window).on('resize', function(){ validateIMG( _IMG_, OPTIONS, initialize ) })
+			}
+
 			IMG_URL =
 			_IMG_.src = getImageSource( OPTIONS.image )
 			
 			$_CONTAINER.addClass( OPTIONS.background )
+			$_CONTAINER.find('.R-error').remove()
+		}
+
+		/**
+		 * Reset cropper to initial state
+		 */
+		function reset(){
+			OPTIONS.image = false
+
+			IMG_URL = ''
+			_IMG_ = null
+			
+			ctx_Static.clearRect( 0, 0, ctx_Static.canvas.width, ctx_Static.canvas.height )
+			ctx_Dynamic.clearRect( 0, 0, ctx_Dynamic.canvas.width, ctx_Dynamic.canvas.height )
+
+			$_CONTAINER.find('.R-error').remove()
 		}
 
 		/**
@@ -298,23 +330,16 @@
 			return OPTIONS.noBorder ? value : value +( compensate ? 2 : - 4 )
 		}
 
-		/**---------------------------------------- Load and init the new image created ----------------------------------------**/
-		window.location.protocol == 'file:' ?
-												console.warn('[CropImage] - Exporting cropped image might not work because of <file://> protocol')
-												: _IMG_.crossOrigin = '*'
-		
 		/**---------------------------------------- init crop box elements variables ----------------------------------------**/
 
 		function initialize( originDetails ){
 			// Variable accessible outsite this function's scope
 			cropCanvas = document.querySelector('.dynaCanvas')
-
-			var 
-			staticCanvas = document.querySelector('.statCanvas'),
+			staticCanvas = document.querySelector('.statCanvas')
 			
-			ctx_Static = staticCanvas.getContext('2d'),
+			ctx_Static = staticCanvas.getContext('2d')
 			ctx_Dynamic = cropCanvas.getContext('2d')
-					
+			
 			// static (container) and dynamic (cropper) canvas contexts
 			ctx_Dynamic.imageSmoothingEnabled = true
 			ctx_Dynamic.imageSmoothingQuality = 'high'
@@ -336,7 +361,6 @@
 				
 				/*************** Position and the size of the image cropper in function of the container ***************/
 				Cropper( originDetails, ADAPTED, function( CROPPED ){
-				
 					$_CROPPER.css({
 						width: cropCanvas.width = borderWise( CROPPED.width ),
 						height: cropCanvas.height = borderWise( CROPPED.height ),
@@ -376,18 +400,18 @@
 				
 					/**---------------------------------------- init canvas images ----------------------------------------**/
 					
-					ctx_Static.drawImage( _IMG_, 0, 0, ADAPTED.width, ADAPTED.height ); // Set picture into the static canvas
-					$_ADAPTER.css({ left: ADAPTED.left, top: ADAPTED.top, width: ADAPTED.width, height: ADAPTED.height }) // init the cropper sizes and position
-					
-					// Load first shot of image into the dynamic canvas ( cropper )
-					ctx_Dynamic.drawImage( staticCanvas, borderWise( CROPPED.left, true ), borderWise( CROPPED.top, true ), CROPPED.width, CROPPED.height, 0, 0, CROPPED.width, CROPPED.height )
-					
+					setTimeout( () => {
+						ctx_Static.drawImage( _IMG_, 0, 0, ADAPTED.width, ADAPTED.height ); // Set picture into the static canvas
+						$_ADAPTER.css({ left: ADAPTED.left, top: ADAPTED.top, width: ADAPTED.width, height: ADAPTED.height }) // init the cropper sizes and position
+						
+						// Load first shot of image into the dynamic canvas ( cropper )
+						ctx_Dynamic.drawImage( staticCanvas, borderWise( CROPPED.left, true ), borderWise( CROPPED.top, true ), CROPPED.width, CROPPED.height, 0, 0, CROPPED.width, CROPPED.height )
+					}, 10 )
+
 					/**---------------------------------------- events ----------------------------------------**/
 					
 					$_CROPPER.mousedown( function(e){
-						
 						if( !NO_MOVE ){
-							
 							MOVING.t = $_CROPPER
 							MOVING.x = e.pageX - $_CROPPER.position().left
 							MOVING.y = e.pageY - $_CROPPER.position().top
@@ -412,7 +436,6 @@
 					
 					.touchstart( function(e){
 						if( !NO_MOVE ){
-							
 							MOVING.t = $_CROPPER
 							MOVING.x = e.originalEvent.touches[0].clientX - $_CROPPER.position().left
 							MOVING.y = e.originalEvent.touches[0].clientY - $_CROPPER.position().top
@@ -482,7 +505,7 @@
 							// ration between original and zoomed image sizes
 							// deffZoom = ( zoom - ( zoom > 1 ? ( zoom / 2 ) : 0 ) )
 							
-							ctx_Static.drawImage(_IMG_, -MOVING.ox * deffZoom, -MOVING.oy * deffZoom, ZOOMING.width, ZOOMING.height )
+							ctx_Static.drawImage( _IMG_, -MOVING.ox * deffZoom, -MOVING.oy * deffZoom, ZOOMING.width, ZOOMING.height )
 						}
 						
 						ctx_Dynamic.drawImage( staticCanvas, borderWise( LEFT, true ), borderWise( TOP, true ), $_CROPPER.width(), $_CROPPER.height(), 0, 0, $_CROPPER.width(), $_CROPPER.height() ) // image of this position
@@ -752,27 +775,21 @@
 				} )
 			} )
 		}
-
-		_IMG_.onerror = function(){ console.error('Could not load image at ' + IMG_URL ) }
-		_IMG_.onload = function(){
-			/*************** Validate input image and apply crop configurations ***************/
-			validateIMG( _IMG_, OPTIONS, initialize )
-			$(window).on('resize', function(){ validateIMG( _IMG_, OPTIONS, initialize ) })
-		}
 		
 		// Mount initial image
 		OPTIONS.image && setImage( OPTIONS.image )
 
 		return {
-			setImage: setImage,
+			setImage,
 			getImage: function( format = 'jpeg' ){
-				if( !setImage ){
+				if( !IMG_URL ){
 					DisplayError('Configuration Error: Undefined image URL or blob image file')
 					return
 				}
 
 				return cropCanvas.toDataURL('image/'+ format.toLowerCase() )
-			}
+			},
+			reset
 		}
 	}
 

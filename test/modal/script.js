@@ -9,6 +9,7 @@ $(document).ready(function(){
     $('#image_preview,#crop').removeClass('d-none')
   })
 
+  let cropper
   $('#crop').click(function(){
     var img_link = $('#image_preview').attr('src')
 
@@ -17,15 +18,25 @@ $(document).ready(function(){
         image: img_link,
         // imgFormat: 'auto', // Formats: 3/2, 200x360, auto
         // circleCrop: true,
-        zoomable: true,
-        // outBoundColor: 'white', // black, white
-        btnDoneAttr: '#crop_popup .btn-primary'
+        zoomable: true
       }
 
-      $('#crop_popup .modal-body').cropimage(cropOptions, function(imgURL){
-        // Do something with image here...
-      } )
+      // Initiate cropper
+      cropper = $('#crop_popup .modal-body').cropimage( cropOptions )
+
+      setTimeout( () => {console.log('set-image'); cropper.setImage( img_link )}, 8000 )
     })
     .modal()
+  })
+
+  $('#crop_popup').on('click', '.crop-it', function(){
+    // Get the cropped image source URL
+    const blobDataURL = cropper.getImage('PNG') // JPEG, PNG, ...
+    if( !blobDataURL ) return
+
+    // Do something ...
+  })
+  $('#crop_popup').on('click', '.reset-it', function(){
+    cropper.reset()
   })
 })

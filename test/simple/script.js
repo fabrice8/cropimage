@@ -91,7 +91,13 @@ $(function(){
   $('.button-crop').on('click', function(){
     // Get the cropped image source URL
     const blobDataURL = cropper.getImage('PNG') // JPEG, PNG, ...
+    if( !blobDataURL ) return
+    
     // Callback with cropped image's blob generated URL
     $('#move-stats').html('<h3>Cropped Image</h3><img style="margin:10% auto;" src="'+ blobDataURL +'">')
+  })
+
+  $('.button-reset-crop').on('click', function(){
+    cropper.reset()
   })
 })
