@@ -123,6 +123,11 @@ $('.button-crop').on('click', function(){
   // Callback with cropped image's blob generated URL
   $('#move-stats').html('<h3>Cropped Image</h3><img style="margin:10% auto;" src="'+ blobDataURL +'">')
 })
+
+$('.button-reset').on('click', function(){
+  // Reset cropper to its initial state
+  cropper.reset()
+})
 ```
 
 Voilà!
